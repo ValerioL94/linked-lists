@@ -47,7 +47,17 @@ class LinkedList {
       return current;
     }
   }
-  pop() {}
+  pop() {
+    if (!this.headNode) return;
+    let current = this.headNode;
+    let prev;
+    while (current.nextNode) {
+      prev = current;
+      current = current.nextNode;
+    }
+    if (current === this.headNode) this.headNode = null;
+    else prev.nextNode = null;
+  }
   contains(value) {}
   find(value) {}
   toString() {}
@@ -76,3 +86,7 @@ test.append(60);
 // console.log(test.head());
 // console.log(test.tail());
 // console.log(test.at(4));
+test.pop();
+test.pop();
+test.pop();
+console.dir(test, { depth: null });
