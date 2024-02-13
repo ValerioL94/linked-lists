@@ -1,15 +1,24 @@
 class LinkedList {
   constructor() {}
   append(value) {
-    if (!this.headNode) return null;
-    let current = this.headNode;
-    while (current.nextNode) {
-      current = current.nextNode;
+    if (!this.headNode) this.headNode = new Node(value);
+    else {
+      let current = this.headNode;
+      while (current.nextNode) {
+        current = current.nextNode;
+      }
+      current.nextNode = new Node(value);
     }
-    current.nextNode = new Node(value);
   }
   prepend(value) {
-    this.headNode = new Node(value);
+    // If we want to reset the list each time, then the following line works fine:
+    // this.headNode = new Node(value);
+
+    // If we want to add a new node at the start of the list and push forward
+    // the other nodes, then we'll use the following line:
+    let node = new Node(value);
+    node.nextNode = null;
+    this.headNode = node;
   }
   size() {
     if (!this.headNode) return 0;
@@ -139,38 +148,44 @@ class LinkedList {
 }
 
 class Node {
-  constructor(value = null) {
+  constructor(value = null, nextNode = null) {
     this.value = value;
-    this.nextNode = null;
+    this.nextNode = nextNode;
   }
 }
 
 let test = new LinkedList();
-// console.log(test);
+console.log(test);
 test.prepend(10);
-// console.log(test);
+console.log(test);
 test.append(20);
+console.log(test);
 test.append(30);
 test.append(40);
 test.append(50);
-// console.dir(test, { depth: null });
-// console.log(test.size());
-// console.log(test.head());
-// console.log(test.tail());
-// console.log(test.at(2), test.at(20));
+console.dir(test, { depth: null });
+console.log(test.size());
+console.log(test.head());
+console.log(test.tail());
+console.log(test.at(2), test.at(20));
 test.pop();
 test.pop();
 test.pop();
-// console.dir(test, { depth: null });
-// console.log(test.contains(20), test.contains(40));
-// console.log(test.find(20), test.find(40));
-// console.log(test.toString());
+console.dir(test, { depth: null });
+console.log(test.contains(20), test.contains(40));
+console.log(test.find(20), test.find(40));
+console.log(test.toString());
 test.insertAt(5, 0);
 test.insertAt(15, 2);
 test.insertAt(30, 4);
 test.insertAt(25, 4);
-// console.dir(test, { depth: null });
+console.dir(test, { depth: null });
 test.removeAt(0);
 test.removeAt(1);
 test.removeAt(2);
 console.dir(test, { depth: null });
+
+/* Code lines like this <if (!this.headNode) return null> and some other lines
+returning null, can be changed to many different results, like a customized message
+saying that the list is empty or that the value is not present etc...
+My only objective here was to avoid error messages when calling these functions. */
