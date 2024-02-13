@@ -36,10 +36,11 @@ class LinkedList {
     return current;
   }
   at(index) {
-    if (index === 1) return this.headNode;
+    if (index < 0 || index > this.size()) return null;
+    if (index === 0) return this.headNode;
     else {
       let current = this.headNode;
-      let n = 1;
+      let n = 0;
       while (n < index) {
         n++;
         current = current.nextNode;
@@ -49,14 +50,14 @@ class LinkedList {
   }
   pop() {
     if (!this.headNode) return null;
+    let previous;
     let current = this.headNode;
-    let prev;
     while (current.nextNode) {
-      prev = current;
+      previous = current;
       current = current.nextNode;
     }
     if (current === this.headNode) this.headNode = null;
-    else prev.nextNode = null;
+    else previous.nextNode = null;
   }
   contains(value) {
     if (!this.headNode) return null;
@@ -72,10 +73,10 @@ class LinkedList {
   }
   find(value) {
     if (!this.headNode) return null;
-    else if (this.headNode.value === value) return 1;
+    else if (this.headNode.value === value) return 0;
     else {
       let current = this.headNode;
-      let n = 1;
+      let n = 0;
       while (current.nextNode) {
         n++;
         current = current.nextNode;
@@ -96,14 +97,34 @@ class LinkedList {
       return (print += 'null');
     }
   }
-  insertAt(value, index) {}
+  insertAt(value, index) {
+    if (index < 0 || index > this.size()) return null;
+    else {
+      let node = new Node(value);
+      if (index === 0) {
+        node.nextNode = this.headNode;
+        this.headNode = node;
+      } else {
+        let previous;
+        let current = this.headNode;
+        let n = 0;
+        while (n < index) {
+          previous = current;
+          current = current.nextNode;
+          n++;
+        }
+        node.nextNode = current;
+        previous.nextNode = node;
+      }
+    }
+  }
   removeAt(index) {}
 }
 
 class Node {
-  constructor(value = null, nextNode = null) {
+  constructor(value = null) {
     this.value = value;
-    this.nextNode = nextNode;
+    this.nextNode = null;
   }
 }
 let test = new LinkedList();
@@ -111,16 +132,14 @@ let test = new LinkedList();
 test.prepend(10);
 // console.log(test);
 test.append(20);
-// console.log(test);
 test.append(30);
 test.append(40);
 test.append(50);
-test.append(60);
 // console.dir(test, { depth: null });
 // console.log(test.size());
 // console.log(test.head());
 // console.log(test.tail());
-// console.log(test.at(4));
+// console.log(test.at(2), test.at(20));
 test.pop();
 test.pop();
 test.pop();
@@ -128,3 +147,12 @@ test.pop();
 // console.log(test.contains(20), test.contains(40));
 // console.log(test.find(20), test.find(40));
 // console.log(test.toString());
+test.insertAt(5, 0);
+test.insertAt(15, 2);
+test.insertAt(30, 4);
+test.insertAt(25, 4);
+console.dir(test, { depth: null });
+// test.removeAt(0);
+// test.removeAt(1);
+// test.removeAt(2);
+// console.dir(test, { depth: null });
