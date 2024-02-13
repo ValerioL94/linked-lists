@@ -118,7 +118,24 @@ class LinkedList {
       }
     }
   }
-  removeAt(index) {}
+  removeAt(index) {
+    if (index < 0 || index >= this.size()) return null;
+    else {
+      if (index === 0) {
+        this.headNode = this.headNode.nextNode;
+      } else {
+        let previous;
+        let current = this.headNode;
+        let n = 0;
+        while (n < index) {
+          previous = current;
+          current = current.nextNode;
+          n++;
+        }
+        previous.nextNode = current.nextNode;
+      }
+    }
+  }
 }
 
 class Node {
@@ -127,6 +144,7 @@ class Node {
     this.nextNode = null;
   }
 }
+
 let test = new LinkedList();
 // console.log(test);
 test.prepend(10);
@@ -151,8 +169,8 @@ test.insertAt(5, 0);
 test.insertAt(15, 2);
 test.insertAt(30, 4);
 test.insertAt(25, 4);
-console.dir(test, { depth: null });
-// test.removeAt(0);
-// test.removeAt(1);
-// test.removeAt(2);
 // console.dir(test, { depth: null });
+test.removeAt(0);
+test.removeAt(1);
+test.removeAt(2);
+console.dir(test, { depth: null });
