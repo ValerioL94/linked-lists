@@ -58,7 +58,18 @@ class LinkedList {
     if (current === this.headNode) this.headNode = null;
     else prev.nextNode = null;
   }
-  contains(value) {}
+  contains(value) {
+    if (!this.headNode) return;
+    else if (this.headNode.value === value) return true;
+    else {
+      let current = this.headNode;
+      while (current.nextNode) {
+        current = current.nextNode;
+        if (current.value === value) return true;
+      }
+      return false;
+    }
+  }
   find(value) {}
   toString() {}
   insertAt(value, index) {}
@@ -89,4 +100,5 @@ test.append(60);
 test.pop();
 test.pop();
 test.pop();
-console.dir(test, { depth: null });
+// console.dir(test, { depth: null });
+// console.log(test.contains(10), test.contains(40));
