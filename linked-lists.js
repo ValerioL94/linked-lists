@@ -1,7 +1,7 @@
 class LinkedList {
   constructor() {}
   append(value) {
-    if (!this.headNode) return;
+    if (!this.headNode) return null;
     let current = this.headNode;
     while (current.nextNode) {
       current = current.nextNode;
@@ -22,11 +22,11 @@ class LinkedList {
     return n;
   }
   head() {
-    if (!this.headNode) return;
+    if (!this.headNode) return null;
     return this.headNode;
   }
   tail() {
-    if (!this.headNode) return;
+    if (!this.headNode) return null;
     let current = this.headNode;
     let n = 1;
     while (current.nextNode) {
@@ -48,7 +48,7 @@ class LinkedList {
     }
   }
   pop() {
-    if (!this.headNode) return;
+    if (!this.headNode) return null;
     let current = this.headNode;
     let prev;
     while (current.nextNode) {
@@ -59,7 +59,7 @@ class LinkedList {
     else prev.nextNode = null;
   }
   contains(value) {
-    if (!this.headNode) return;
+    if (!this.headNode) return null;
     else if (this.headNode.value === value) return true;
     else {
       let current = this.headNode;
@@ -70,7 +70,20 @@ class LinkedList {
       return false;
     }
   }
-  find(value) {}
+  find(value) {
+    if (!this.headNode) return null;
+    else if (this.headNode.value === value) return 1;
+    else {
+      let current = this.headNode;
+      let n = 1;
+      while (current.nextNode) {
+        n++;
+        current = current.nextNode;
+        if (current.value === value) return n;
+      }
+      return null;
+    }
+  }
   toString() {}
   insertAt(value, index) {}
   removeAt(index) {}
@@ -101,4 +114,5 @@ test.pop();
 test.pop();
 test.pop();
 // console.dir(test, { depth: null });
-// console.log(test.contains(10), test.contains(40));
+// console.log(test.contains(20), test.contains(40));
+console.log(test.find(20), test.find(40));
