@@ -84,7 +84,18 @@ class LinkedList {
       return null;
     }
   }
-  toString() {}
+  toString() {
+    if (!this.headNode) return null;
+    else {
+      let current = this.headNode;
+      let print = `(${current.value}) -> `;
+      while (current.nextNode) {
+        current = current.nextNode;
+        print += `(${current.value}) -> `;
+      }
+      return (print += 'null');
+    }
+  }
   insertAt(value, index) {}
   removeAt(index) {}
 }
@@ -115,4 +126,5 @@ test.pop();
 test.pop();
 // console.dir(test, { depth: null });
 // console.log(test.contains(20), test.contains(40));
-console.log(test.find(20), test.find(40));
+// console.log(test.find(20), test.find(40));
+// console.log(test.toString());
